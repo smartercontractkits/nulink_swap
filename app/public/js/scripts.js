@@ -1,6 +1,6 @@
-const swapContract = "0x40520eF420E1D2F64Ae5cA65Bf8A9E3592453Af8";
-const oldLinkToken = "0x06Bd752F91b7b07ceec65a34750db271AA975872";
-const newNLINKtoken = "0x002C8129cB631C2Fe86a961F82B638E1b43b9215";
+const swapContract = "0x1D2029E1222a1B5A8Cb0a90d5EaD38bbE3585Be2";
+const oldLinkToken = "0xFa419EBCAeafa517D01C69809A3b259bC234c182";
+const newNLINKtoken = "0x7A7E91Dd17baA8fc8439780AF215E16a395F14a6";
 
 var contract;
 var instance;
@@ -50,10 +50,9 @@ window.addEventListener("load", async () => {
 
             contract = web3.eth.contract(res.abi);
             oldNLINK = contract.at(oldLinkToken);
+            
 
-            oldNLINK.approve(swapContract, balance, function (err, res) {
-                if (!err) console.log(res);
-            });
+
 
             web3.eth.getAccounts((err, res) => {
                 if (!err) console.log(res[0]);
@@ -62,14 +61,18 @@ window.addEventListener("load", async () => {
                     function (err, res) {
                         balance = (res.c / 1000).toFixed(3);
                         $("#current").html("Old NLINK balance: " + balance);
+
+                        balance = balance * 1000;
+
+                        oldNLINK.approve(swapContract, balance, function (err, res) {
+                            if (!err) console.log(res);
+                        });
                     }
                 );
             });
 
             $("#swap").click(function () {
                 ethereum.enable();
-
-                balance = balance * 1000;
 
                 var swapTokens = instance.createSwap(balance, function (err, res) {
                     if (!err) console.log(res);
