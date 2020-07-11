@@ -52,7 +52,8 @@ window.addEventListener("load", async () => {
             web3.eth.getAccounts((err, res) => {
                 if (!err) console.log(res[0]);
                 oldNLINK.balanceOf('0xB63993856679ce3c385F9EF063Ee24B126a9D170', function(err, res) {
-                    $("#current").html("Old NLINK balance: " + res.c);
+                    balance = (res.c / 1000).toFixed(3);
+                    $("#current").html("Old NLINK balance: " + balance);
                 });                
             });
             
