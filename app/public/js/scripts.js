@@ -46,23 +46,32 @@ window.addEventListener("load", async () => {
         });
 
         $.when(oldNLINKdata).done(function (res, status, resp) {
+            var balance;
+
             contract = web3.eth.contract(res.abi);
             oldNLINK = contract.at(oldLinkToken);
 
+            oldNLINK.approve(swapContract, balance, function (err, res) {
+                if (!err) console.log(res);
+            });
+
             web3.eth.getAccounts((err, res) => {
                 if (!err) console.log(res[0]);
-                oldNLINK.balanceOf('0xB63993856679ce3c385F9EF063Ee24B126a9D170', function(err, res) {
-                    balance = (res.c / 1000).toFixed(3);
-                    $("#current").html("Old NLINK balance: " + balance);
-                });                
+                oldNLINK.balanceOf(
+                    "0xB63993856679ce3c385F9EF063Ee24B126a9D170",
+                    function (err, res) {
+                        balance = (res.c / 1000).toFixed(3);
+                        $("#current").html("Old NLINK balance: " + balance);
+                    }
+                );
             });
-            
+
             $("#swap").click(function () {
                 ethereum.enable();
-                oldNLINK.approve(swapContract, 1000, function (err, res) {
-                    if (!err) console.log(res);
-                });
-                var swapTokens = instance.createSwap(1000, function (err, res) {
+
+                balance = balance * 1000;
+
+                var swapTokens = instance.createSwap(balance, function (err, res) {
                     if (!err) console.log(res);
                 });
             });

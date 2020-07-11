@@ -32,22 +32,7 @@ contract NLINKSwap is Ownable {
         address recipient = msg.sender;
         _oldNLINK.transferFrom(recipient, address(this), _amount);
         _newNLINK.transfer(recipient, _amount);
+
+        emit swapComplete(msg.sender);
     }
 }
-
-
-
-/*
-
-Someone wants to swap his NLINK to the new ERC677 NLINK.
-He opens up the web interface and receives an address to send his NLINK to
-He is notified the address which he is sending from will receive the new ERC677
-After he sends NLINK to the contract, web app already listens for transactions
-When web app hears one, it captures value key and returns the exact amount of tokens to the sender
-
-A simple mapping of sender => ERC20 amount created to track previous swaps
-
-    IERC20 private _oldNLINK = ERC20(0x0332E604E20f9b12c41D99001E9F23f61B32ff1D);
-    IERC20 private _newNLINK = ERC20(0x0);
-
-*/
