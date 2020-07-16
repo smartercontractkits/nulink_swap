@@ -254,9 +254,9 @@ contract linkStandardToken is linkERC20, linkBasicToken {
 
 
 
-contract LinkToken is linkStandardToken, ERC677Token {
+contract NuLinkToken is linkStandardToken, ERC677Token {
 
-  uint public constant totalSupply = 10**27;
+  uint public constant totalSupply = 1000000000000;
   string public constant name = 'NuLink Token';
   uint8 public constant decimals = 3;
   string public constant symbol = 'NLINK';
