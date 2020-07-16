@@ -1,6 +1,6 @@
-const swapContract = "0x1D2029E1222a1B5A8Cb0a90d5EaD38bbE3585Be2";
-const oldLinkToken = "0xFa419EBCAeafa517D01C69809A3b259bC234c182";
-const newNLINKtoken = "0x7A7E91Dd17baA8fc8439780AF215E16a395F14a6";
+const swapContract = "0xeBc51ED49F20e82353a264BfE27f014Cb12aD94f";
+const oldLinkToken = "0x0a956e5A5b39A4E471a9631d9b9cA96bEf2f6B20";
+const newNLINKtoken = "0xdC8eDF5640D357c46da9707F94097C4809313414";
 
 var contract;
 var instance;
@@ -18,6 +18,8 @@ window.addEventListener("load", async () => {
             account = res[0];
         });
     }
+
+    await ethereum.enable();
 
     $(function () {
         var data = $.ajax({
@@ -57,7 +59,7 @@ window.addEventListener("load", async () => {
             web3.eth.getAccounts((err, res) => {
                 if (!err) console.log(res[0]);
                 oldNLINK.balanceOf(
-                    "0xB63993856679ce3c385F9EF063Ee24B126a9D170",
+                    res[0],
                     function (err, res) {
                         balance = (res.c / 1000).toFixed(3);
                         $("#current").html("Old NLINK balance: " + balance);
