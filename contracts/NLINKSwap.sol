@@ -12,7 +12,7 @@ import "@openzeppelin/contracts/math/SafeMath.sol";
 
 contract NLINKSwap is Ownable {
 
-    IERC20 public _oldNLINK;
+    IERC20 private _oldNLINK;
     IERC20 private _newNLINK;
 
     event swapComplete(address recipient);
